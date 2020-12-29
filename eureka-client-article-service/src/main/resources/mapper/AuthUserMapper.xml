@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eureka.jwt.jwt.mapper.AuthUserMapper">
+  <resultMap id="BaseResultMap" type="com.eureka.jwt.jwt.entity.AuthUser">
+    <!--@mbg.generated generated on Fri Jul 31 09:44:08 CST 2020.-->
+    <!--@Table auth_user-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="accessKey" jdbcType="VARCHAR" property="accesskey" />
+    <result column="secretKey" jdbcType="VARCHAR" property="secretkey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Fri Jul 31 09:44:08 CST 2020.-->
+    id, accessKey, secretKey
+  </sql>
+</mapper>

@@ -1,0 +1,69 @@
+server:
+  port: 2000
+spring:
+  application:
+    name: eureka-zuul
+  security:
+    user:
+      name: admin
+      password: admin
+
+zuul:
+#  前缀
+  prefix: /api
+  sensitive-headers:
+  add-proxy-headers: true
+  routes:
+    # 屏蔽路径
+#    ignored-patterns: /xx/**
+#     url路径配置
+#    fsh-house:
+#      path: /user/**
+#      url: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8081
+
+#     服务名配置
+    eureka-client-user-service:
+      path: /user/**
+      serviceId: eureka-client-user
+    eureka-client-article-service:
+      path: /article/**
+      serviceId: eureka-client-article
+    eureka-client-feign-service:
+      path: /feign/**
+      serviceId: eureka-client-feign
+    eureka-oauth:
+      path: /auth/**
+      serviceId: oauth2-server
+      custom-sensitive-headers: true
+    eureka-dw-test:
+      path: /test/**
+      serviceId: test-service
+      custom-sensitive-headers: true
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 15
+
+security:
+  #  sessions: NEVER
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      scope: app
+      user-authorization-uri: ${custom.security.auth-server}/oauth/authorize
+      access-token-uri: ${custom.security.auth-server}/oauth/token
+    resource:
+      user-info-uri: ${custom.security.auth-server}/user
+      prefer-token-info: false
+
+custom:
+  security:
+    auth-server: http://127.0.0.1:8888
